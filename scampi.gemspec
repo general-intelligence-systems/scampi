@@ -15,11 +15,11 @@ TAP (Test Anything Protocol) harness and assertion library.
 http://github.com/general-intelligence-systems/scampi
   EOF
 
-  s.files           = `git ls-files`.split("\n") - [".gitignore"] + %w(RDOX ChangeLog)
+  s.files           = `git ls-files`.split("\n") - [".gitignore"]
   s.bindir          = 'exe'
   s.executables     = ['scampi']
   s.require_path    = 'lib'
-  s.extra_rdoc_files = ['README.rdoc', 'RDOX']
+  s.extra_rdoc_files = ['README.rdoc']
   s.test_files      = []
 
   s.add_dependency 'colorize-extended'
