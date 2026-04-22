@@ -19,7 +19,7 @@ http://github.com/general-intelligence-systems/scampi
   s.bindir          = 'exe'
   s.executables     = ['scampi']
   s.require_path    = 'lib'
-  s.extra_rdoc_files = ['README.rdoc']
+  s.extra_rdoc_files = ['README.md']
   s.test_files      = []
 
   s.add_dependency 'colorize-extended'
