@@ -58,4 +58,16 @@ module Kernel
   def shared(name, &block)
     Scampi::Shared[name] = block
   end
+
+  # Allow `it` at the top level (outside a describe block).
+  # Wraps the spec in an anonymous context derived from the caller's filename.
+  def it(description, &block)
+    loc = caller_locations(1, 1).first
+    file = loc.path || loc.absolute_path || "(unknown)"
+    ctx_name = File.basename(file, File.extname(file))
+    ctx = Scampi::Context.new(ctx_name) {}
+    ctx.it(description, &block)
+    ctx.register
+    Scampi.queue << ctx
+  end
 end

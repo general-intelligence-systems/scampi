@@ -7,7 +7,7 @@ require 'scampi'
 ENV["TEST"] = "true"
 
 files = if ARGV.empty?
-  Dir.glob("test/**/*.rb")
+  `rg -l "^test do$" test`.split("\n")
 else
   ARGV.flat_map { |pattern| Dir.glob(pattern) }
 end
