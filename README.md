@@ -11,16 +11,18 @@ Tests can live alongside your code using the `test` block — it only runs when 
 def greet(name) = "hello #{name}"
 
 test do
+  greeting = proc { |name| greet(name) }
+
   it "equality and matching" do
-    greet("world").should == "hello world"
-    greet("world").should.equal "hello world"
-    greet("world").should =~ /hello/
-    greet("world").should.match(/hello/)
+    greeting.("world").should == "hello world"
+    greeting.("world").should.equal "hello world"
+    greeting.("world").should =~ /hello/
+    greeting.("world").should.match(/hello/)
   end
 
   it "negation" do
-    greet("world").should.not == "goodbye"
-    greet("world").should.not.match(/goodbye/)
+    greeting.("world").should.not == "goodbye"
+    greeting.("world").should.not.match(/goodbye/)
   end
 
   it "predicates" do
