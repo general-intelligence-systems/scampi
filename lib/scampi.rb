@@ -35,20 +35,26 @@ module Scampi
     @ran = true
 
     # Register: evaluate all describe blocks to discover specs
-    @queue.each(&:register)
+    @queue.each { |item| item.register if item.is_a?(Context) }
 
-    # TAP version + plan (one entry per top-level describe)
+    # TAP version + plan
     puts "TAP version 14"
     puts "1..#{@queue.size}"
 
-    # Execute all specs as subtests
-    @queue.each_with_index do |context, i|
-      passed = context.execute(0)
+    # Execute: contexts become subtests, raw specs become flat lines
+    @queue.each_with_index do |item, i|
       n = i + 1
-      if passed
-        puts "#{"ok".green} #{n} - #{context.name}"
+      if item.is_a?(Context)
+        passed = item.execute(0)
+        if passed
+          puts "#{"ok".green} #{n} - #{item.name}"
+        else
+          puts "#{"not ok".red} #{n} - #{item.name}"
+        end
       else
-        puts "#{"not ok".red} #{n} - #{context.name}"
+        _, description, block = item
+        Counter[:specifications] += 1
+        passed = run_bare_spec(description, block, n)
       end
     end
 
@@ -86,6 +92,47 @@ module Scampi
       puts "#{prefix}#{"not ok".red} #{local_n} - #{description}: #{error}"
       puts ErrorLog.strip.gsub(/^/, "#{prefix}# ")  if Backtraces
       false
+    end
+  end
+
+  def self.run_bare_spec(description, block, n)
+    handle_requirement(description, 0, n) do
+      begin
+        Counter[:depth] += 1
+        rescued = false
+        begin
+          prev_req = Counter[:requirements]
+          block.call
+        rescue Object => e
+          rescued = true
+          raise e
+        ensure
+          if Counter[:requirements] == prev_req and not rescued
+            raise Error.new(:missing, "empty specification: #{description}")
+          end
+        end
+      rescue SystemExit, Interrupt
+        raise
+      rescue Object => e
+        ErrorLog << "#{e.class}: #{e.message}\n"
+        e.backtrace.find_all { |line| line !~ /bin\/scampi|\/scampi\.rb:\d+/ }.
+          each_with_index { |line, i|
+          ErrorLog << "\t#{line}#{i==0 ? ": #{description}" : ""}\n"
+        }
+        ErrorLog << "\n"
+
+        if e.kind_of? Error
+          Counter[e.count_as] += 1
+          e.count_as.to_s.upcase
+        else
+          Counter[:errors] += 1
+          "ERROR: #{e.class}"
+        end
+      else
+        ""
+      ensure
+        Counter[:depth] -= 1
+      end
     end
   end
 end
