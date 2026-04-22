@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    scampi (0.1.4)
+    scampi (0.1.5)
       colorize-extended
 
 GEM
@@ -22,7 +22,7 @@ DEPENDENCIES
 CHECKSUMS
   colorize (1.1.0) sha256=30b5237f0603f6662ab8d1fc2bd4a96142b806c6415d79e45ef5fdc6a0cfc837
   colorize-extended (0.1.0) sha256=e8c39986e41ee2e14623c8fa02cf851ef4b83d2fe1392daa2b4d81f0df7bedc9
-  scampi (0.1.4)
+  scampi (0.1.5)
 
 BUNDLED WITH
   4.0.7
