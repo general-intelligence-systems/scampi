@@ -103,7 +103,7 @@ It also supports TAP:
 
     Failed 1/6 tests, 83.33% okay.
 
-(taptap is available from http://chneukirchen.org/repos/taptap/)
+(taptap is included with scampi)
 
 As of Bacon 1.1, it also supports Knock:
 
@@ -220,13 +220,6 @@ demonstrations, quick checks and doctest tests.
     => false
 
 
-== Bacon with autotest
-
-Since version 1.0, there is autotest support.  You need to tag your
-test directories (test/ or spec/) by creating an .bacon file there.
-Autotest then will find it.  bin/bacon needs to be in PATH or RUBYPATH.
-
-
 == Converting specs
 
 spec-converter is a simple tool to convert test-unit or dust style
@@ -239,7 +232,6 @@ It can be found at https://github.com/relevance/spec_converter.
 
 * Michael Fellinger, for fixing Bacon for 1.9 and various improvements.
 * Gabriele Renzi, for implementing Context#should.
-* James Tucker, for the autotest support.
 * Yossef Mendelssohn, for nested contexts.
 * everyone contributing bug fixes.
 
@@ -253,7 +245,6 @@ It can be found at https://github.com/relevance/spec_converter.
   * describe now supports multiple arguments for better organization.
   * Empty specifications are now erroneous.
   * after-blocks run in the case of exceptions too.
-  * Autotest support.
   * Bug fixes.
 
 * November 30th, 2008: Third public release 1.1.

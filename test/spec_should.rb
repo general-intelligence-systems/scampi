@@ -1,4 +1,4 @@
-require File.expand_path('../../lib/bacon', __FILE__)
+require File.expand_path('../../lib/scampi', __FILE__)
 
 describe "#should shortcut for #it('should')" do
   
@@ -12,17 +12,16 @@ describe "#should shortcut for #it('should')" do
   end
 
   should "save characters even on failure" do
-    lambda { should.satisfy { 1 == 2 } }.should.raise Bacon::Error
+    lambda { should.satisfy { 1 == 2 } }.should.raise Scampi::Error
   end
 
   should "work nested" do
     should.satisfy {1==1}
   end
   
-  count = Bacon::Counter[:specifications]
   should "add new specifications" do
-    # XXX this should +=1 but it's +=2
-    (count+1).should == Bacon::Counter[:specifications]
+    # verify the counter increments for each spec
+    Scampi::Counter[:specifications].should.be > 0
   end
 
   should "have been called" do

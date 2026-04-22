@@ -1,4 +1,4 @@
-# Rakefile for Bacon.  -*-ruby-*-
+# Rakefile for Scampi.  -*-ruby-*-
 require 'rdoc/task'
 require 'rake/testtask'
 
@@ -24,8 +24,8 @@ def git_tree_version
     @tree_version << ".0"  unless @tree_version.count('.') == 2
   else
     $: << "lib"
-    require 'bacon'
-    @tree_version = Bacon::VERSION
+    require 'scampi'
+    @tree_version = Scampi::VERSION
   end
   @tree_version
 end
@@ -35,7 +35,7 @@ def gem_version
 end
 
 def release
-  "bacon-#{git_tree_version}"
+  "scampi-#{git_tree_version}"
 end
 
 def manifest
@@ -45,7 +45,7 @@ end
 
 desc "Make binaries executable"
 task :chmod do
-  Dir["bin/*"].each { |binary| File.chmod(0775, binary) }
+  Dir["exe/*"].each { |binary| File.chmod(0775, binary) }
 end
 
 desc "Generate a ChangeLog"
@@ -56,12 +56,12 @@ end
 
 desc "Generate RDox"
 task "RDOX" do
-  sh "bin/bacon -Ilib --automatic --specdox >RDOX"
+  sh "exe/scampi -Ilib --automatic --specdox >RDOX"
 end
 
 desc "Run all the tests"
 task :test do
-  ruby "bin/bacon -w -Ilib --automatic --quiet"
+  ruby "exe/scampi -w -Ilib --automatic --quiet"
 end
 
 
@@ -69,12 +69,12 @@ desc "Generate RDoc documentation"
 Rake::RDocTask.new(:rdoc) do |rdoc|
   rdoc.options << '--line-numbers' << '--inline-source' <<
     '--main' << 'README.rdoc' <<
-    '--title' << 'Bacon Documentation' <<
+    '--title' << 'Scampi Documentation' <<
     '--charset' << 'utf-8'
   rdoc.rdoc_dir = "doc"
   rdoc.rdoc_files.include 'README.rdoc'
   rdoc.rdoc_files.include 'COPYING'
   rdoc.rdoc_files.include 'RDOX'
-  rdoc.rdoc_files.include('lib/bacon.rb')
+  rdoc.rdoc_files.include('lib/scampi.rb')
 end
 task :rdoc => ["RDOX"]

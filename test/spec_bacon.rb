@@ -1,19 +1,19 @@
 $-w,w = nil, $-w
-require File.expand_path('../../lib/bacon', __FILE__)
+require File.expand_path('../../lib/scampi', __FILE__)
 $-w = w
 
 # Hooray for meta-testing.
 module MetaTests
   def succeed
     lambda { |block|
-      block.should.not.raise Bacon::Error
+      block.should.not.raise Scampi::Error
       true
     }
   end
 
   def fail
     lambda { |block|
-      block.should.raise Bacon::Error
+      block.should.raise Scampi::Error
       true
     }
   end
@@ -25,7 +25,7 @@ module MetaTests
   end
 end
 
-describe "Bacon" do
+describe "Scampi" do
   extend MetaTests
 
   it "should have should.satisfy" do
@@ -399,7 +399,7 @@ end
 describe 'describe arguments' do
 
   def check(ctx,name)
-    ctx.should.be.an.instance_of Bacon::Context
+    ctx.should.be.an.instance_of Scampi::Context
     ctx.instance_variable_get('@name').should == name
   end
 
@@ -412,15 +412,15 @@ describe 'describe arguments' do
   end
 
   it 'should work with modules' do
-    check(describe(Bacon) {},'Bacon')
+    check(describe(Scampi) {},'Scampi')
   end
 
   it 'should work with namespaced modules' do
-    check(describe(Bacon::Context) {},'Bacon::Context')
+    check(describe(Scampi::Context) {},'Scampi::Context')
   end
 
   it 'should work with multiple arguments' do
-    check(describe(Bacon::Context, :empty) {},'Bacon::Context empty')
+    check(describe(Scampi::Context, :empty) {},'Scampi::Context empty')
   end
 
 end

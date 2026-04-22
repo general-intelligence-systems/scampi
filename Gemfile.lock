@@ -1,0 +1,28 @@
+PATH
+  remote: .
+  specs:
+    scampi (0.1.0)
+      colorize-extended
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    colorize (1.1.0)
+    colorize-extended (0.1.0)
+      colorize (~> 1.1)
+
+PLATFORMS
+  ruby
+  x86_64-linux
+
+DEPENDENCIES
+  colorize-extended
+  scampi!
+
+CHECKSUMS
+  colorize (1.1.0) sha256=30b5237f0603f6662ab8d1fc2bd4a96142b806c6415d79e45ef5fdc6a0cfc837
+  colorize-extended (0.1.0) sha256=e8c39986e41ee2e14623c8fa02cf851ef4b83d2fe1392daa2b4d81f0df7bedc9
+  scampi (0.1.0)
+
+BUNDLED WITH
+  4.0.7

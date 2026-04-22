@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+$LOAD_PATH.unshift File.expand_path('../lib', __dir__)
+require 'scampi'
+
+ENV["TEST"] = "true"
+
+files = if ARGV.empty?
+  Dir.glob("test/**/*.rb")
+else
+  ARGV.flat_map { |pattern| Dir.glob(pattern) }
+end
+
+if files.empty?
+  $stderr.puts "no test files found"
+  exit 1
+end
+
+files.each { |file|
+  old_verbose, $-w = $-w, nil
+  load file
+  $-w = old_verbose
+}
+
+Scampi.run
+exit(Scampi::Counter[:errors] + Scampi::Counter[:failed] > 0 ? 1 : 0)
