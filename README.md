@@ -2,6 +2,11 @@
 
 A small Ruby test framework forked from [Bacon](https://github.com/chneukirchen/bacon) with built-in [TAP (Test Anything Protocol)](https://testanything.org/) output.
 
+## Requirements
+
+- Ruby >= 3.3
+- [ripgrep](https://github.com/BurntSushi/ripgrep) (`rg`) — used to find test files
+
 ## Usage
 
 Tests can live alongside your code using the `test` block — it only runs when the file is executed directly or via `scampi`:
@@ -113,6 +118,8 @@ jobs:
         with:
           ruby-version: "3.3"
           bundler-cache: true
+
+      - run: sudo apt-get install -y ripgrep
 
       - run: bundle exec scampi
 ```
