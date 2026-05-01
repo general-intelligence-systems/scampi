@@ -17,7 +17,7 @@ gem "scampi"
 
 Or install it directly:
 
-```sh
+```bash
 gem install scampi
 ```
 
@@ -37,13 +37,13 @@ end
 
 Run it directly:
 
-```sh
+```bash
 ruby greet.rb
 ```
 
 Or with the `scampi` runner:
 
-```sh
+```bash
 scampi greet.rb
 ```
 
@@ -51,6 +51,6 @@ scampi greet.rb
 
 When invoked without arguments, `scampi` uses `rg` to find every file containing a `test do` block and runs them all:
 
-```sh
+```bash
 bundle exec scampi
 ```
