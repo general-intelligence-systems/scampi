@@ -19,7 +19,15 @@ def greet(name) = "hello #{name}"
 __END__
 
 greeting = proc { |name| greet(name) }
+describe "greet" do
+  it "equality and matching" do
+    greeting.("world").should == "hello world"
+  end
+end
+```
 
+
+```
 describe "greet" do
   it "equality and matching" do
     greeting.("world").should == "hello world"
