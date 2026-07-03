@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.0.0] - 2026-07-04
+
+### Changed
+- **Breaking:** co-located tests now live in an `__END__` section instead of a
+  `test do ... end` block. The section after `__END__` is never parsed in
+  production and is evaluated as spec code by the `scampi` runner (backtraces
+  keep the original file/line numbers). `scampi` with no arguments now
+  auto-discovers `.rb` files whose `__END__` section contains specs.
+
+### Removed
+- The `Kernel#test` method (`lib/scampi/kernel_ext.rb`). Running a source file
+  directly (`ruby greet.rb`) no longer executes its tests; use `scampi` instead.
+
 ## [0.1.9] - 2026-07-04
 
 ### Changed

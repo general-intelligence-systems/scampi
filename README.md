@@ -9,15 +9,18 @@ A small Ruby test framework forked from [Bacon](https://github.com/chneukirchen/
 
 ## Usage
 
-Tests can live alongside your code using the `test` block — it only runs when the file is executed directly or via `scampi`:
+Tests can live alongside your code in an `__END__` section — the specs never
+load in production (Ruby stops parsing at `__END__`), and `scampi` picks them up:
 
 ```ruby
 # greet.rb
 def greet(name) = "hello #{name}"
 
-test do
-  greeting = proc { |name| greet(name) }
+__END__
 
+greeting = proc { |name| greet(name) }
+
+describe "greet" do
   it "equality and matching" do
     greeting.("world").should == "hello world"
     greeting.("world").should.equal "hello world"
@@ -92,9 +95,11 @@ test do
 end
 ```
 
+Run a file (or let `scampi` auto-discover every `.rb` with an `__END__` spec section):
+
 ```
-$ ruby greet.rb
 $ scampi greet.rb
+$ scampi
 ```
 
 ## GitHub Actions

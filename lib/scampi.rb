@@ -80,6 +80,37 @@ module Scampi
     puts "# #{tests} tests, #{assertions} assertions, #{failures} failures, #{errors} errors"
   end
 
+  # Load a test file, queuing whatever specs it defines.
+  #
+  # Two styles are supported:
+  #
+  # 1. **Co-located `__END__` tests** -- the file's real code runs (Ruby
+  #    stops parsing at `__END__`), then the section after `__END__` is
+  #    evaluated as spec code. Because `DATA`/`__END__` is only populated
+  #    for the directly-run script, we read and eval the tail ourselves,
+  #    preserving the original file and line numbers for backtraces.
+  #
+  # 2. **Plain spec files** -- files with `describe`/`it` at the top level
+  #    and no `__END__` are simply loaded.
+  #
+  # @parameter file [String] Path to the test file.
+  def self.load_test_file(file)
+    src = File.read(file)
+
+    # Run the implementation code. Ruby ignores everything past __END__.
+    old_verbose, $-w = $-w, nil
+    load file
+    $-w = old_verbose
+
+    # If there's an __END__ section, eval its body as spec code.
+    return unless src =~ /^__END__$/
+    head, tail = src.split(/^__END__$\n?/, 2)
+    return if tail.nil? || tail.strip.empty?
+
+    lineno = head.count("\n") + 2  # first line after the __END__ marker
+    eval(tail, TOPLEVEL_BINDING, file, lineno)
+  end
+
   # Install an `at_exit` hook that runs all queued tests and sets the
   # exit code to 1 if there were any failures or errors.
   def self.summary_on_exit
@@ -172,4 +203,3 @@ require_relative 'scampi/error'
 require_relative 'scampi/context'
 require_relative 'scampi/should'
 require_relative 'scampi/monkey_patches'
-require_relative 'scampi/kernel_ext'
