@@ -1,5 +1,7 @@
 # Scampi
 
+![Scampi](media/scampi.jpeg)
+
 A small Ruby test framework forked from [Bacon](https://github.com/chneukirchen/bacon) with built-in [TAP (Test Anything Protocol)](https://testanything.org/) output.
 
 ## Requirements
