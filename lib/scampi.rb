@@ -9,7 +9,7 @@
 # See COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 require_relative 'scampi/version'
-require 'colorize_extended'
+require_relative 'colorize_extended'
 
 # The top-level Scampi module. Manages the global test queue, counters,
 # error log, and TAP output.

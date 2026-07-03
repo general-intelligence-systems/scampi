@@ -19,14 +19,8 @@ http://github.com/general-intelligence-systems/scampi
   s.bindir          = 'exe'
   s.executables     = ['scampi']
   s.require_path    = 'lib'
-  s.extra_rdoc_files = ['readme.md']
+  s.extra_rdoc_files = ['README.md']
   s.test_files      = []
-
-  s.metadata = {
-    "documentation_uri" => "https://general-intelligence-systems.github.io/scampi/"
-  }
-
-  s.add_dependency 'colorize-extended'
 
   s.author          = 'Nathan K'
   s.email           = 'nathankidd@hey.com'
