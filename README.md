@@ -27,7 +27,7 @@ end
 ```
 
 
-```
+```ruby
 describe "greet" do
   it "equality and matching" do
     greeting.("world").should == "hello world"
