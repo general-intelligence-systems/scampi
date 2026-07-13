@@ -1,21 +1,24 @@
 PATH
   remote: .
   specs:
-    scampi (0.1.9)
+    scampi (1.0.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
+    lefthook (2.1.10)
 
 PLATFORMS
   ruby
   x86_64-linux
 
 DEPENDENCIES
+  lefthook (~> 2.1)
   scampi!
 
 CHECKSUMS
-  scampi (0.1.9)
+  lefthook (2.1.10) sha256=cc9c06bd8ea689e8b8016eab9769e54d696d07951860c1c6d28e8f6812e61b65
+  scampi (1.0.0)
 
 BUNDLED WITH
    2.6.9

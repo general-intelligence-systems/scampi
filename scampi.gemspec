@@ -25,4 +25,5 @@ http://github.com/general-intelligence-systems/scampi
   s.author          = 'Nathan K'
   s.email           = 'nathankidd@hey.com'
   s.homepage        = 'http://github.com/general-intelligence-systems/scampi'
+  s.add_development_dependency "lefthook", "~> 2.1"
 end
